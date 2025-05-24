@@ -104,6 +104,95 @@ dotnet ef migrations add <migration-name>
 dotnet ef database update
 ```
 
+## Testing
+
+The project includes both unit tests and integration tests. Here's how to run them:
+
+### Running Tests
+
+#### Using .NET CLI
+
+1. **Run all tests**:
+```bash
+dotnet test
+```
+
+2. **Run only unit tests**:
+```bash
+dotnet test --filter "Category=Unit"
+```
+
+3. **Run only integration tests**:
+```bash
+dotnet test --filter "Category=Integration"
+```
+
+4. **Run a specific test class**:
+```bash
+dotnet test --filter "FullyQualifiedName=N5Now.Tests.Integration.PermissionIntegrationTests"
+```
+
+5. **Run a specific test method**:
+```bash
+dotnet test --filter "FullyQualifiedName=N5Now.Tests.Integration.PermissionIntegrationTests.RequestPermission_ValidData_ShouldPersistAndPublishEvent"
+```
+
+6. **Run tests with detailed output**:
+```bash
+dotnet test -v n
+```
+
+7. **Run tests with coverage report**:
+```bash
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info
+```
+
+#### Using Visual Studio
+
+1. Open Test Explorer (View -> Test Explorer)
+2. Tests are organized by category (Unit/Integration)
+3. You can:
+   - Run all tests
+   - Run tests in a specific category
+   - Run a specific test class
+   - Run a specific test method
+
+#### Using VS Code
+
+1. Install the ".NET Core Test Explorer" extension
+2. Open the Testing panel (View -> Testing)
+3. Tests are organized by category
+4. Click the play button next to any test to run it
+
+### Test Categories
+
+- **Unit Tests**: Located in `N5Now.Tests/Unit/`
+  - Test individual components in isolation
+  - Use mocks for external dependencies
+  - Fast execution
+
+- **Integration Tests**: Located in `N5Now.Tests/Integration/`
+  - Test complete workflows
+  - Use in-memory database
+  - Mock external services (Kafka, Elasticsearch)
+  - Verify system integration
+
+### Test Coverage
+
+To generate a test coverage report:
+
+1. Install the coverlet collector:
+```bash
+dotnet tool install --global coverlet.console
+```
+
+2. Run tests with coverage:
+```bash
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info
+```
+
+3. View the coverage report in your IDE or using a tool like ReportGenerator
+
 ## Technologies Used
 
 - .NET 8.0
